@@ -7,6 +7,7 @@ output:
     source_code: embed
     vertical_layout: fill
     theme: paper
+    
 ---
 
 ```{r setup, include=FALSE}
@@ -15,14 +16,23 @@ output:
 
 library(flexdashboard)
 library(tidyverse)
-library(plotly)
-library(leaflet)
 library(knitr)
 library(DT)
+library(readxl)
+library(leaflet)
+library(leaflet.providers)
+library(raster)
+library(sf)
+library(plotly)
+
+# READ DATA:
+
+library(readxl)
+worldcities <- read_excel("data/worldcities.xlsx")
 
 ```
 
-Intro
+Introduction
 ===========================================================================
 
 Column {data-width=300}
@@ -30,15 +40,21 @@ Column {data-width=300}
 
 ### DESCRIPTION
 
-```{r}
+\
 
-```
+**Leaflet** is an open source JavaScript library used to build web mapping applications. It creates embedding maps with tiled base layers, interactive panning and zooming and feature layers. 
+
+\
+
+**The {leaflet} R package** allows to integrate and control Leaflet maps in R and to create maps from the R console or from RStudio. {leaflet} also provides interactive panning and zooming and allows rendering spatial objects from the {sp} or {sf} packages or from dataframes with latitude and longitude coordinates. There is also a [leaflet plugins repository](https://leafletjs.com/plugins) that you can use to add more features/plugins to your maps. 
+
+\
 
 
 Column 
 ---------------------------------------------------------------------------
 
-### DESCRIPTION
+### Cities with more than 1,000,000 habitants 
 
 
 ```{r}
@@ -46,13 +62,41 @@ Column
 ```
 
 
-datatable- DT
+
+Map
+===========================================================================
+
+### Map
+
+```{r}
+
+worldcities %>%
+  filter(population > 1000000) %>%
+  leaflet() %>%
+  addProviderTiles(providers$OpenTopoMap) %>%
+  addCircleMarkers( radius = ~population/1000000,
+                    label = ~city,
+                    color = "white",
+                    weight = 2,
+                    opacity = 0.6,
+                    fill = TRUE,
+                    fillColor = "purple",
+                    fillOpacity = 0.9,
+                    stroke = TRUE,
+                    popup = ~paste( "City:", city ,
+                                    "",
+                                    "Population:", population))
+
+```
+
+
+Data table & Chart
 ====================================================================================
 
 Column {data-width=650}
 -----------------------------------------------------------------------
 
-### Chart A
+### DT
 
 ```{r}
 
