@@ -1,0 +1,78 @@
+---
+title: "Victoria Crime Statistics"
+output: 
+  flexdashboard::flex_dashboard:
+    storyboard: true
+    orientation: columns
+    source_code: embed
+    vertical_layout: fill
+    theme: paper
+---
+
+```{r setup, include=FALSE}
+
+# PACKAGES / LIBRARIES:
+
+library(flexdashboard)
+library(tidyverse)
+library(plotly)
+library(leaflet)
+library(knitr)
+library(DT)
+
+```
+
+Intro
+===========================================================================
+
+Column {data-width=300}
+---------------------------------------------------------------------------
+
+### DESCRIPTION
+
+```{r}
+
+```
+
+
+Column 
+---------------------------------------------------------------------------
+
+### DESCRIPTION
+
+
+```{r}
+
+```
+
+
+datatable- DT
+====================================================================================
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Chart A
+
+```{r}
+
+```
+
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Chart B
+
+```{r}
+
+```
+
+### Chart C
+
+```{r}
+
+```
+
+
+
